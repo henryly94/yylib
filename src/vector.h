@@ -89,8 +89,6 @@ class vector {
   void expansion() {
     size_type new_capacity = 2 * capacity_;
     new_capacity = new_capacity < 10 ? 10 : new_capacity;
-    std::cout << "Expansion: " << capacity_ << ", " << new_capacity
-              << std::endl;
     pointer new_data = allocator_.allocate(new_capacity);
     for (size_type i = 0; i < size_; i++) {
       new_data[i] = data_[i];

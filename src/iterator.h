@@ -16,7 +16,39 @@ class basic_iterator {
   basic_iterator() = default;
   basic_iterator(pointer ptr) : ptr_(ptr) {}
 
-  pointer operator->() { return ptr_; }
+  reference operator*() { return *ptr_; }
+
+  pointer operator->() const { return ptr_; }
+
+  basic_iterator& operator++() {
+    ptr_++;
+    return *this;
+  }
+
+  basic_iterator operator++(int) {
+    pointer tmp_ptr = ptr_;
+    ++(*this);
+    return basic_iterator(tmp_ptr);
+  }
+
+  basic_iterator& operator--() {
+    ptr_--;
+    return *this;
+  }
+
+  basic_iterator operator--(int) {
+    pointer tmp_ptr = ptr_;
+    --(*this);
+    return basic_iterator(tmp_ptr);
+  }
+
+  bool operator==(const basic_iterator& other) const {
+    return ptr_ == other.ptr_;
+  }
+
+  bool operator!=(const basic_iterator& other) const {
+    return ptr_ != other.ptr_;
+  }
 
  private:
   pointer ptr_;

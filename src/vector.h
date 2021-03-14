@@ -1,7 +1,10 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#include <iostream>
+
 #include "allocator.h"
+#include "iterator.h"
 
 namespace yylib {
 
@@ -15,8 +18,9 @@ class vector {
   using const_reference = const T&;
   using size_type = size_t;
   using allocator_type = Allocator;
+  using iterator_type = basic_iterator<T>;
 
-  vector() = default;
+  vector() : data_(nullptr), allocator_() {}
   vector(size_type n) { data_ = allocator_.allocate(n); }
 
   reference at(size_type i) { return data_[i]; }
@@ -31,6 +35,8 @@ class vector {
       data_[i] = value;
     }
   }
+
+  iterator_type begin() { return iterator_type(data_); }
 
  private:
   allocator_type allocator_;
